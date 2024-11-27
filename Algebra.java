@@ -25,9 +25,15 @@ public class Algebra {
 
 	// Returns x1 + x2
 	public static int plus(int a , int b) {
+		if (b<0){
+			for (int i=0; i<b; i++){
+				a--;
+			}
+		 } else { 
 		for (int i=0; i<b; i++){
 			a++;
 		}
+	}
 		return a;
 	}
 
@@ -44,20 +50,20 @@ public class Algebra {
 
 	// Returns x1 * x2
 	public static int times(int a , int b) {
-		boolean negative =false;
+		boolean isNegative =false;
 		if (b<0){
 			b= minus(0,b);
-			negative = !negative;
+			isNegative = !isNegative;
 		}
 		if (a<0){
 			a= minus(0,a);
-			negative = !negative;
+			isNegative = !isNegative;
 		}
 		int result=0;
 		for (int i=0; i<b; i++){
 			result+=a;  
 		}
-		return result ;
+		return isNegative? -result : result ;
 	}
 
 	// Returns x^n (for n >= 0)
@@ -73,21 +79,21 @@ public class Algebra {
 
 	// Returns the integer part of x1 / x2 
 	public static int div(int a , int b) {
-		boolean negative= false;
+		boolean isNegative= false;
 		if (a<0) {
 			a=times(a,-1);
-			negative= !negative;
+			isNegative= !isNegative;
 		}
 		if (b<0){
 			b=times(b,-1);
-			negative= !negative;
+			isNegative= !isNegative;
 		}
 		int count=0;
 		while (a>=b) {
 			a-=b;
 			count++;
 		}
-		return count;
+		return isNegative? -count : count;
 	}
 
 	// Returns x1 % x2
@@ -108,4 +114,3 @@ public class Algebra {
 		return (result-1);
 	}
 }	
- 	  
