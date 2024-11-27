@@ -1,4 +1,111 @@
-private static int testPow() {
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.io.IOException;
+
+public class TestAlgebra {
+    private static int totalTests = 0;
+    private static int passedTests = 0;
+
+    public static void main(String[] args) {
+        testPlus();
+        testMinus();
+        testTimes();
+        testPow();
+        testDiv();
+        testMod();
+        testSqrt();
+        testForbiddenOperators();
+        
+        System.out.println("\nTotal tests: " + totalTests);
+        System.out.println("Passed tests: " + passedTests);
+        System.out.println("Success rate: " + (passedTests * 100.0 / totalTests) + "%");
+    }
+
+    private static int testPlus() {
+        System.out.println("\nTesting plus operations:");
+        totalTests += 6;
+        
+        boolean test1 = Algebra.plus(2, 3) == 5;
+        System.out.println("Test 1 (basic addition): " + (test1 ? "PASS" : "FAIL"));
+        
+        boolean test2 = Algebra.plus(0, 0) == 0;
+        System.out.println("Test 2 (zero addition): " + (test2 ? "PASS" : "FAIL"));
+        
+        boolean test3 = Algebra.plus(-1, 1) == 0;
+        System.out.println("Test 3 (negative numbers): " + (test3 ? "PASS" : "FAIL"));
+        
+        boolean test4 = Algebra.plus(100, 200) == 300;
+        System.out.println("Test 4 (large numbers): " + (test4 ? "PASS" : "FAIL"));
+        
+        boolean test5 = Algebra.plus(-5, -3) == -8;
+        System.out.println("Test 5 (negative result): " + (test5 ? "PASS" : "FAIL"));
+        
+        boolean test6 = Algebra.plus(Integer.MAX_VALUE - 1, 1) == Integer.MAX_VALUE;
+        System.out.println("Test 6 (max value): " + (test6 ? "PASS" : "FAIL"));
+
+        int passed = (test1 ? 1 : 0) + (test2 ? 1 : 0) + (test3 ? 1 : 0) + 
+                    (test4 ? 1 : 0) + (test5 ? 1 : 0) + (test6 ? 1 : 0);
+        passedTests += passed;
+        return passed;
+    }
+
+    private static int testMinus() {
+        System.out.println("\nTesting minus operations:");
+        totalTests += 6;
+        
+        boolean test1 = Algebra.minus(7, 2) == 5;
+        System.out.println("Test 1 (basic subtraction): " + (test1 ? "PASS" : "FAIL"));
+        
+        boolean test2 = Algebra.minus(2, 7) == -5;
+        System.out.println("Test 2 (negative result): " + (test2 ? "PASS" : "FAIL"));
+        
+        boolean test3 = Algebra.minus(0, 0) == 0;
+        System.out.println("Test 3 (zero subtraction): " + (test3 ? "PASS" : "FAIL"));
+        
+        boolean test4 = Algebra.minus(100, 50) == 50;
+        System.out.println("Test 4 (large numbers): " + (test4 ? "PASS" : "FAIL"));
+        
+        boolean test5 = Algebra.minus(-5, -3) == -2;
+        System.out.println("Test 5 (negative numbers): " + (test5 ? "PASS" : "FAIL"));
+        
+        boolean test6 = Algebra.minus(Integer.MIN_VALUE + 1, 1) == Integer.MIN_VALUE;
+        System.out.println("Test 6 (min value): " + (test6 ? "PASS" : "FAIL"));
+
+        int passed = (test1 ? 1 : 0) + (test2 ? 1 : 0) + (test3 ? 1 : 0) + 
+                    (test4 ? 1 : 0) + (test5 ? 1 : 0) + (test6 ? 1 : 0);
+        passedTests += passed;
+        return passed;
+    }
+
+    private static int testTimes() {
+        System.out.println("\nTesting times operations:");
+        totalTests += 6;
+        
+        boolean test1 = Algebra.times(3, 4) == 12;
+        System.out.println("Test 1 (basic multiplication): " + (test1 ? "PASS" : "FAIL"));
+        
+        boolean test2 = Algebra.times(0, 5) == 0;
+        System.out.println("Test 2 (multiply by zero): " + (test2 ? "PASS" : "FAIL"));
+        
+        boolean test3 = Algebra.times(-2, 3) == -6;
+        System.out.println("Test 3 (negative number): " + (test3 ? "PASS" : "FAIL"));
+        
+        boolean test4 = Algebra.times(-2, -3) == 6;
+        System.out.println("Test 4 (negative numbers): " + (test4 ? "PASS" : "FAIL"));
+        
+        boolean test5 = Algebra.times(100, 0) == 0;
+        System.out.println("Test 5 (large number by zero): " + (test5 ? "PASS" : "FAIL"));
+        
+        boolean test6 = Algebra.times(1, 1) == 1;
+        System.out.println("Test 6 (identity): " + (test6 ? "PASS" : "FAIL"));
+
+        int passed = (test1 ? 1 : 0) + (test2 ? 1 : 0) + (test3 ? 1 : 0) + 
+                    (test4 ? 1 : 0) + (test5 ? 1 : 0) + (test6 ? 1 : 0);
+        passedTests += passed;
+        return passed;
+    }
+
+    private static int testPow() {
         System.out.println("\nTesting power operations:");
         totalTests += 6;
         
@@ -140,71 +247,4 @@ private static int testPow() {
             return 0;
         }
     }
-
-    class TestAlgebra {
-    public static int plus(int a , int b) {
-    for (int i=0; i<b; i++){
-        a++;
-    }
-    return a;
-}
-
-public static int minus(int a , int b) {
-    for (int i=0; i<b; i++){
-        a--;
-    }
-    return a ;
-}
-
-public static int times(int a , int b) {
-    int result=0;
-    for (int i=0; i<b; i++){
-        result+=a;  
-    }
-    return result ;
-}
-
-public static int pow(int a, int b) {
-    if (b==0) return a;
-    int result= 1;  
-    for (int i=0; i<b; i++){
-        result *= a;
-    }
-    return result;
-}
-
-public static int div(int a , int b) {
-    int count=0;
-    while (a>=b) {
-        a-=b;
-        count++;
-    }
-    return count;
-}
-
-public static int mod(int a , int b) {
-    int result=a;
-    while (result>=b) {
-        result-=b;
-    }
-    return result;
-}
-
-public static int sqrt(int a) {
-    int result=1;
-    while (times(result,result)<=a) {
-        result++;
-    }
-    return (result-1);
-}
-
-public static void main(String[] args) {
-    System.out.println("Plus: " + plus(1, 2));    // 3
-    System.out.println("Minus: " + minus(4, 3));  // 1
-    System.out.println("Times: " + times(3, 4));  // 12
-    System.out.println("Pow: " + pow(2, 4));      // 16
-    System.out.println("Div: " + div(9, 2));     // 4
-    System.out.println("Mod: " + mod(10, 3));     // 1
-    System.out.println("Sqrt: " + sqrt(25));      // 5
-}
-}
+} 
