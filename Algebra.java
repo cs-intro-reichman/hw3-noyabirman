@@ -26,7 +26,7 @@ public class Algebra {
 	// Returns x1 + x2
 	public static int plus(int a , int b) {
 		if (b<0){
-			for (int i=0; i<b; i++){
+			for (int i=0; i<times(-1,b); i++){
 				a--;
 			}
 		 } else { 
@@ -50,7 +50,7 @@ public class Algebra {
 
 	// Returns x1 * x2
 	public static int times(int a , int b) {
-		boolean isNegative =false;
+		boolean isNegative = false;
 		if (b<0){
 			b= minus(0,b);
 			isNegative = !isNegative;
@@ -59,9 +59,9 @@ public class Algebra {
 			a= minus(0,a);
 			isNegative = !isNegative;
 		}
-		int result=0;
-		for (int i=0; i<b; i++){
-			result+=a;  
+		int result = 0;
+		for (int i = 0; i<b; i++){
+			result = plus(result,a);  
 		}
 		return isNegative? -result : result ;
 	}
@@ -90,7 +90,7 @@ public class Algebra {
 		}
 		int count=0;
 		while (a>=b) {
-			a-=b;
+			a=minus(a,b);
 			count++;
 		}
 		return isNegative? -count : count;
