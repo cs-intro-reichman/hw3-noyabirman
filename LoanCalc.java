@@ -30,12 +30,10 @@ public class LoanCalc {
 	private static double endBalance(double loan, double rate, int n, double payment) {	
 		rate=rate/100;
 		double balance = loan;
-	
-		for (int i=0 ; i<n ; i++){
+		for (int i= 0 ; i < n ; i++){
 			balance=(balance-payment)*(1+rate);
-			
 		}
-		return balance;
+			return balance;
 	}
 	
 	// Uses sequential search to compute an approximation of the periodical payment
@@ -47,15 +45,10 @@ public class LoanCalc {
 		iterationCounter=0;
 		rate=rate/100;
 		double payment=loan/n;
-		double balance=loan;
-		while (Math.abs(balance)>epsilon){
-			balance = loan;
-			for (int i=0; i<n;i++){
-				balance= (balance- payment)*(1+rate);
-			}
-			iterationCounter++;
-			
+		double balance;
+		while ((endBalance(loan,rate,n,payment)>=epsilon)&& (payment<loan)){
 			payment+=epsilon;
+			iterationCounter++;
 		}
 
 			return payment;
@@ -71,22 +64,18 @@ public class LoanCalc {
 		rate=rate/100;
 		double lo=loan/n; //buttom bound
 		double hi=loan*(1+rate); //upper bound
-		double mid;
-		double balance= loan;
-		iterationCounter=0;
+		double mid; 
+		
 		while ((hi-lo)>epsilon){
-			mid= (hi+lo)/2; //calculating the average
-			balance= loan;
-			for (int i =0;i<n; i++){
-				balance=(balance-mid)*(1+rate);
-			}
-			iterationCounter++;
+			mid=(hi+lo)/2;
+			double balance= endBalance(loan,rate,n, mid);
 			if (balance>0){
-				lo=mid;
+				lo= mid ;
 			} else {
 				hi=mid;
 			}
+			iterationCounter++;
 		}
-		return (hi+lo)/2 ;
+		return (hi+lo)/2;
 	}
 }
