@@ -45,16 +45,13 @@ public class LoanCalc {
 		iterationCounter=0;
 		double payment=loan/n;
 		rate=rate/100;
-		double balance;
-		do {
-			balance=endBalance(loan,rate,n,payment);
-			if (Math.abs(balance)>epsilon) {
-				payment+=epsilon;
-			}
+		while ((endBalance(loan,rate,n,payment)>=epsilon)&& (payment<loan)){
+			payment+=epsilon;
 			iterationCounter++;
-		} while (Math.abs(balance)>epsilon);
+		}
 			return payment;
-    }
+	}
+
     
     // Uses bisection search to compute an approximation of the periodical payment 
 	// that will bring the ending balance of a loan close to 0.
@@ -65,20 +62,18 @@ public class LoanCalc {
         iterationCounter=0;
 		rate=rate/100;
 		double lo=loan/n; //buttom bound
-		double hi=loan*(1+rate); //upper bound
-		double mid; 
+		double hi=loan; //upper bound
+		double g=(lo+hi)/2; 
 		
 		while ((hi-lo)>epsilon){
-			mid=(hi+lo)/2;
-			double balance= endBalance(loan,rate,n, mid);
-			
-			if (balance>0){
-				lo= mid ;
+			if (endBalance(loan,rate,n, lo)*endBalance(loan,rate,n, g)>0){
+				lo=g;
 			} else {
-				hi=mid;
+				hi=g;
 			}
+			g=(hi+lo)/2;
 			iterationCounter++;
 		}
-		return (hi+lo)/2;
+		return g;
 	}
 }
