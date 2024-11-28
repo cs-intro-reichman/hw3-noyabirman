@@ -30,10 +30,10 @@ public class LoanCalc {
 	private static double endBalance(double loan, double rate, int n, double payment) {	
 		rate=rate/100;
 		double balance = loan;
-		for (int i= 0 ; i < n ; i++){
-			balance=(balance-payment)*(1+rate);
+		for (int i= 0 ; i < n ; i++) {
+			balance= (balance-payment)*(1+rate);
 		}
-			return balance;
+		return balance;
 	}
 	
 	// Uses sequential search to compute an approximation of the periodical payment
@@ -43,8 +43,8 @@ public class LoanCalc {
 	// Side effect: modifies the class variable iterationCounter.
     public static double bruteForceSolver(double loan, double rate, int n, double epsilon) {
 		iterationCounter=0;
-		rate=rate/100;
 		double payment=loan/n;
+		rate=rate/100;
 		double balance;
 		do {
 			balance=endBalance(loan,rate,n,payment);
