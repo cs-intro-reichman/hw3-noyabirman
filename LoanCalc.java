@@ -58,11 +58,7 @@ public class LoanCalc {
 			if (Math.abs(balance)<epsilon){
 				break;
 			}
-			if (balance>0){
-				payment+=epsilon;
-			} else {
-				break;
-			}
+			payment+=epsilon;
 		}
 		return payment;
     }
