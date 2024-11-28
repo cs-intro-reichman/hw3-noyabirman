@@ -48,16 +48,14 @@ public class LoanCalc {
 		rate=rate/100;
 		double payment=loan/n;
 		double balance=loan;
-		while(Math.abs(balance)>epsilon){
-			balance= loan;
+
+		while(Math.abs(balance) > epsilon){
+			balance = loan;
 			for (int i=0; i<n;i++){
 				balance= (balance- payment)*(1+rate);
 			}
 			iterationCounter++;
-
-			if (Math.abs(balance)<epsilon){
-				break;
-			}
+			
 			payment+=epsilon;
 		}
 		return payment;
