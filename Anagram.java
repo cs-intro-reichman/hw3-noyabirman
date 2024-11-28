@@ -58,10 +58,14 @@ public class Anagram {
 	public static String preProcess(String str) {
 		String pre= "";
 		for (int i=0; i<str.length();i++){
-			if (Character.isLetter(str.charAt(i))){
-				pre+=Character.toLowerCase(str.charAt(i));
+			char ch = str.charAt(i);
+			if ((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z')) {
+				pre+= Character.toLowerCase(ch);
+			} else if (ch == ' '){
+				pre += ch;
 			}
 		}
+		
 		return pre;
 	} 
 	   
@@ -70,11 +74,12 @@ public class Anagram {
 	public static String randomAnagram(String str) {
 		String randomAnagram="";
 		String processed= preProcess(str);
+		String totalChars= processed;
 		
-		while (processed.length() > 0) {
-				int randomIndex= (int)(Math.random()* processed.length());
-				randomAnagram+=processed.charAt(randomIndex);
-				processed = processed.substring(0, randomIndex) + processed.substring(randomIndex + 1);
+		while (totalChars.length() > 0) {
+				int randomIndex= (int)(Math.random())* totalChars.length();
+				randomAnagram+=totalChars.charAt(randomIndex);
+				totalChars = totalChars.substring(0, randomIndex) + totalChars.substring(randomIndex + 1);
 			} 
 			return randomAnagram;
 		}
